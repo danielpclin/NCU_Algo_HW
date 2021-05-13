@@ -6,9 +6,9 @@ int main()
     while (true){
         int products[6];
         int sum = 0;
-        for (int i = 0; i < 6; ++i) {
-            std::cin >> products[i];
-            sum += products[i];
+        for (int & product : products) {
+            std::cin >> product;
+            sum += product;
         }
         if (sum == 0){
             break;
