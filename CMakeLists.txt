@@ -26,3 +26,7 @@ add_executable(RelationalOperators hw5/relational_operators.cpp)
 add_executable(QuickSort hw6/quick_sort.cpp)
 add_executable(Queen hw6/queen.cpp)
 add_executable(JoanaAndTheOddNumbers hw6/joana_and_the_odd_numbers.cpp)
+
+add_executable(Bricks hw7/bricks.cpp)
+add_executable(Packets hw7/packets.cpp)
+add_executable(Peter hw7/peter.cpp)
