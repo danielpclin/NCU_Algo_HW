@@ -30,3 +30,7 @@ add_executable(JoanaAndTheOddNumbers hw6/joana_and_the_odd_numbers.cpp)
 add_executable(Bricks hw7/bricks.cpp)
 add_executable(Packets hw7/packets.cpp)
 add_executable(Peter hw7/peter.cpp)
+
+add_executable(AllInAll hw8/all_in_all.cpp)
+add_executable(BinPacking hw8/bin_packing.cpp)
+add_executable(Building hw8/building.cpp)
