@@ -17,9 +17,9 @@ int main()
         int reserve[2] = {0};
         result += products[5];
         result += products[4];
-        reserve[0] += 11;
+        reserve[0] += 11*products[4];
         result += products[3];
-        reserve[1] += 5;
+        reserve[1] += 5*products[3];
         result += ceil((double)products[2]/4);
         if (products[2]%4 != 0){
             reserve[1] += 4 - products[2]%4;
@@ -29,7 +29,7 @@ int main()
         if (a < 0){
             int b = ceil((double)abs(a)/9);
             result += b;
-            reserve[0] += b*9-abs(a);
+            reserve[0] += (b*9-abs(a))*4;
         }else{
             reserve[0] += (reserve[1] - products[1])*4;
         }

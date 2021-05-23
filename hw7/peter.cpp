@@ -8,7 +8,7 @@ int main()
         int k, n;
         std::cin >> k >> n;
         int result = 0;
-        while (n > k){
+        while (n >= k){
             result += n - n%k;
             n = n%k + n/k;
         }
