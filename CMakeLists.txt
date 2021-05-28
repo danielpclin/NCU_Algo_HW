@@ -34,3 +34,7 @@ add_executable(Peter hw7/peter.cpp)
 add_executable(AllInAll hw8/all_in_all.cpp)
 add_executable(BinPacking hw8/bin_packing.cpp)
 add_executable(Building hw8/building.cpp)
+
+add_executable(LowestScore hw9/lowest_score.cpp)
+add_executable(KthSmallest hw9/kth_smallest.cpp)
+add_executable(CoolWords hw9/cool_words.cpp)
