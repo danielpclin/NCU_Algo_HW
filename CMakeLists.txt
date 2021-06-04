@@ -38,3 +38,7 @@ add_executable(Building hw8/building.cpp)
 add_executable(LowestScore hw9/lowest_score.cpp)
 add_executable(KthSmallest hw9/kth_smallest.cpp)
 add_executable(CoolWords hw9/cool_words.cpp)
+
+add_executable(Change hw10/change.cpp)
+add_executable(CraneOrigami hw10/crane_origami.cpp)
+add_executable(HuffmanCode hw10/huffman_code.cpp)
