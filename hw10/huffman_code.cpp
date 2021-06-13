@@ -132,7 +132,7 @@ void HuffmanCodes(char data[], int freq[], int size){
         }
     });
     for (const auto& p: tmp){
-        std::cout << p.second << ": " << p.first << "\n";
+        std::cout << p.second << ":" << p.first << "\n";
     }
 }
 int main()
