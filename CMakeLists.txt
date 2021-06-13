@@ -42,3 +42,8 @@ add_executable(CoolWords hw9/cool_words.cpp)
 add_executable(Change hw10/change.cpp)
 add_executable(CraneOrigami hw10/crane_origami.cpp)
 add_executable(HuffmanCode hw10/huffman_code.cpp)
+
+add_executable(Scarecrow hw11/scarecrow.cpp)
+add_executable(Hamilton hw11/hamilton.cpp)
+add_executable(CreditCheck hw11/credit_check.cpp)
+
