@@ -47,3 +47,8 @@ add_executable(Scarecrow hw11/scarecrow.cpp)
 add_executable(Hamilton hw11/hamilton.cpp)
 add_executable(CreditCheck hw11/credit_check.cpp)
 
+add_executable(BFS final/bfs.cpp)
+add_executable(Dijkstra final/dijkstra.cpp)
+add_executable(FloydWarshall final/floyd_warshall.cpp)
+add_executable(Hungarian final/hungarian.cpp)
+add_executable(LCS final/lcs.cpp)
