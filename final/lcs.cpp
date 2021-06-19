@@ -9,7 +9,7 @@ int lcs(const std::string& a, const std::string& b){
 
     for (int i=1; i <= a.size(); i++)
         for (int j=1; j <= b.size(); j++)
-            if (a[i] == b[j])
+            if (a[i-1] == b[j-1])
                 length[i][j] = length[i-1][j-1] + 1;
             else
                 length[i][j] = std::max(length[i-1][j],
