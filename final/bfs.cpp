@@ -26,6 +26,9 @@ namespace std{
 
 class Node{
 public:
+    Node* prev = nullptr;
+    std::array<int, 9> status{};
+
     Node(std::array<int, 9> status) {
         for (int i = 0; i < 9; ++i) {
             this->status[i] = status[i];
@@ -34,9 +37,18 @@ public:
             }
         }
     }
-    Node* prev = nullptr;
-    std::vector<std::array<int, 9>> history() const;
-    std::array<int, 9> status{};
+
+    std::vector<std::array<int, 9>> history() const{
+        std::vector<std::array<int, 9>> h;
+        h.push_back(status);
+        Node* n = prev;
+        while (n != nullptr){
+            h.push_back(n->status);
+            n = n->prev;
+        }
+        std::reverse(h.begin(), h.end());
+        return h;
+    }
 
     bool equals(std::array<int, 9> target) const{
         return status == target;
@@ -108,18 +120,6 @@ public:
 private:
     int zero_index = -1;
 };
-
-std::vector<std::array<int, 9>> Node::history() const {
-    std::vector<std::array<int, 9>> h;
-    h.push_back(status);
-    Node* n = prev;
-    while (n != nullptr){
-        h.push_back(n->status);
-        n = n->prev;
-    }
-    std::reverse(h.begin(), h.end());
-    return h;
-}
 
 int main()
 {
