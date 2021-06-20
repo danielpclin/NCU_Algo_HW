@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <map>
 #include <unordered_map>
+#include <climits>
 
 bool compare(char c1, char c2)
 {
@@ -24,15 +25,14 @@ int main()
 {
     int n, m;
     std::cin >> n >> m;
-    std::vector<std::vector<int>> d(n, std::vector<int>(n, 2000));
     std::vector<std::tuple<char, char, int>> edge;
     std::unordered_set<char> s;
     char a, b;
     int weight;
     for (int i = 0; i < m; ++i) {
         std::cin >> a >> b >> weight;
-        s.emplace(a);
-        s.emplace(b);
+        s.insert(a);
+        s.insert(b);
         edge.emplace_back(a, b, weight);
     }
     std::vector<char> v(s.begin(), s.end());
@@ -40,25 +40,46 @@ int main()
     std::unordered_map<char, int> map;
     for (int i = 0; i < n; ++i) {
         map.emplace(std::make_pair(v[i], i));
-        d[i][i] = 0;
     }
-    for (auto i: edge) {
-        d[map[std::get<0>(i)]][map[std::get<1>(i)]] = std::get<2>(i);
+
+    std::vector<std::vector<int>> ans(n, std::vector<int>(n));
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(i == j)
+                ans[i][j] = 0;
+            else
+                ans[i][j] = INT_MAX;
+        }
     }
-    for (int k = 0; k < n; ++k) {
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (d[i][j] > d[i][k] + d[k][j]){
-                    d[i][j] = d[i][k] + d[k][j];
-                }
+
+    for(auto &i : edge)
+        ans[map[std::get<0>(i)]][map[std::get<1>(i)]] = std::get<2>(i);
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            for(int k = 0; k < n; k++) {
+                if(ans[j][i] == INT_MAX || ans[i][k] == INT_MAX)
+                    continue;
+                if(ans[j][k] > ans[j][i] + ans[i][k])
+                    ans[j][k] = ans[j][i] + ans[i][k];
             }
         }
     }
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            std::cout << (d[i][j] == 2000 ? "INF" : std::to_string(d[i][j])) << " ";
+            if (ans[i][j] == INT_MAX){
+                std::cout << "INF";
+            }else{
+                std::cout << ans[i][j];
+            }
+            if (j != n-1){
+                std::cout << " ";
+            }
         }
-        std::cout << "\n";
+        if (i != n-1){
+            std::cout << std::endl;
+        }
     }
     return 0;
 }
