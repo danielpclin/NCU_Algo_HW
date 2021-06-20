@@ -35,15 +35,18 @@ public:
         }
     }
     Node* prev = nullptr;
-    std::vector<std::array<int, 9>> history();
-    bool equals(std::array<int, 9> target){
+    std::vector<std::array<int, 9>> history() const;
+    std::array<int, 9> status{};
+
+    bool equals(std::array<int, 9> target) const{
         return status == target;
     }
-    bool equals(Node node){
+
+    bool equals(Node node) const{
         return status == node.status;
     }
 
-    static void printStatus(std::array<int, 9> arr){
+     static void printStatus(std::array<int, 9> arr){
         for (int i = 0; i < arr.size(); ++i) {
             std::cout << arr[i];
             if (i%3 == 2){
@@ -54,16 +57,17 @@ public:
         }
     }
 
-    void printStatus(){
+    void printStatus() const{
         printStatus(status);
     }
-
     Node* moveLeft(){
         int col = zero_index % 3;
         if (col != 0){
             std::array<int, 9> arr(status);
             std::swap(arr.at(zero_index), arr.at(zero_index-1));
-            return new Node(arr);
+            Node* n = new Node(arr);
+            n->prev = this;
+            return n;
         }
         return nullptr;
     }
@@ -72,7 +76,9 @@ public:
         if (col != 2){
             std::array<int, 9> arr(status);
             std::swap(arr.at(zero_index), arr.at(zero_index+1));
-            return new Node(arr);
+            Node* n = new Node(arr);
+            n->prev = this;
+            return n;
         }
         return nullptr;
     }
@@ -81,30 +87,35 @@ public:
         if (row != 0){
             std::array<int, 9> arr(status);
             std::swap(arr.at(zero_index), arr.at(zero_index-3));
-            return new Node(arr);
+            Node* n = new Node(arr);
+            n->prev = this;
+            return n;
         }
         return nullptr;
     }
+
     Node* moveBottom(){
         int row = zero_index / 3;
         if (row != 2){
             std::array<int, 9> arr(status);
             std::swap(arr.at(zero_index), arr.at(zero_index+3));
-            return new Node(arr);
+            Node* n = new Node(arr);
+            n->prev = this;
+            return n;
         }
         return nullptr;
     }
-
 private:
-    std::array<int, 9> status{};
     int zero_index = -1;
 };
 
-std::vector<std::array<int, 9>> Node::history() {
+std::vector<std::array<int, 9>> Node::history() const {
     std::vector<std::array<int, 9>> h;
     h.push_back(status);
-    while (prev != nullptr){
-        h.push_back(prev->status);
+    Node* n = prev;
+    while (n != nullptr){
+        h.push_back(n->status);
+        n = n->prev;
     }
     std::reverse(h.begin(), h.end());
     return h;
@@ -123,11 +134,36 @@ int main()
     std::queue<Node*> q;
     std::unordered_set<std::array<int, 9>> explored;
     q.emplace(new Node(init));
+    explored.emplace(init);
     while (!q.empty()){
         Node* n = q.front();
         q.pop();
+        n->printStatus();
         if (n->equals(target)){
-            std::for_each(n->history().begin(), n->history().end(), [](int i)->void {std::cout << i << " ";});
+//            std::cout << "===========\n";
+//            auto history = n->history();
+//            std::for_each(history.begin(), history.end(), [](auto item){Node::printStatus(item);});
+            break;
+        }
+        Node* top = n->moveTop();
+        Node* right = n->moveRight();
+        Node* bottom = n->moveBottom();
+        Node* left = n->moveLeft();
+        if (top != nullptr && explored.find(top->status) == explored.end()){
+            explored.emplace(top->status);
+            q.emplace(top);
+        }
+        if (right != nullptr && explored.find(right->status) == explored.end()){
+            explored.emplace(right->status);
+            q.emplace(right);
+        }
+        if (bottom != nullptr && explored.find(bottom->status) == explored.end()){
+            explored.emplace(bottom->status);
+            q.emplace(bottom);
+        }
+        if (left != nullptr && explored.find(left->status) == explored.end()){
+            explored.emplace(left->status);
+            q.emplace(left);
         }
     }
     return 0;
