@@ -5,6 +5,21 @@
 #include <map>
 #include <unordered_map>
 
+bool compare(char c1, char c2)
+{
+    if (c1 >= 'A' && c1 <= 'Z' && c2 >= 'A' && c2 <= 'Z'){
+        return c1 < c2;
+    }
+    if (c1 >= 'a' && c1 <= 'z' && c2 >= 'a' && c2 <= 'z'){
+        return c1 < c2;
+    }
+    if (c1 >= 'a' && c1 <= 'z' && c2 >= 'A' && c2 <= 'Z'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 int main()
 {
     int n, m;
@@ -21,7 +36,7 @@ int main()
         edge.emplace_back(a, b, weight);
     }
     std::vector<char> v(s.begin(), s.end());
-    std::sort(v.begin(), v.end());
+    std::sort(v.begin(), v.end(), compare);
     std::unordered_map<char, int> map;
     for (int i = 0; i < n; ++i) {
         map.emplace(std::make_pair(v[i], i));
