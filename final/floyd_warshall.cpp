@@ -24,7 +24,7 @@ int main()
 {
     int n, m;
     std::cin >> n >> m;
-    std::vector<std::vector<int>> d(n, std::vector<int>(n, 1e9+5));
+    std::vector<std::vector<int>> d(n, std::vector<int>(n, 2000));
     std::vector<std::tuple<char, char, int>> edge;
     std::unordered_set<char> s;
     char a, b;
@@ -56,7 +56,7 @@ int main()
     }
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            std::cout << (d[i][j] == 1e9+5 ? "INF" : std::to_string(d[i][j])) << " ";
+            std::cout << (d[i][j] == 2000 ? "INF" : std::to_string(d[i][j])) << " ";
         }
         std::cout << "\n";
     }
